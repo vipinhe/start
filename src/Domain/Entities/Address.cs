@@ -2,29 +2,32 @@ namespace Domain.Entities;
 
 public class Address
 {
-    public Guid Id { get; set; }
-    public string? Street { get; set; }
-    public string? Number { get; set; }
-    public string? Neighborhood { get; set; }
-    public string? City { get; set; }
-    public string? Estate { get; set; }
+    public Guid Id { get; private set; }
+    public string? Street { get; private set; }
+    public string? Number { get; private set; }
+    public string? Neighborhood { get; private set; }
+    public string? City { get; private set; }
+    public string? Estate { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public DateTime? DeletedAt { get; private set; }
     public bool Active { get; private set; }
-
-    public static Address Create(string? street, string? number, string? neighborhood, string? city, string? Estate)
+    public Guid ClientId { get; private set; }
+    public Client? Client { get; private set; }
+    
+    public static Address Create(string? street, string? number, string? neighborhood, string? city, string? estate, Guid clientId, Guid id = default)
     {
         return new Address
         {
-            Id = Guid.NewGuid(),
+            Id = id == Guid.Empty ? Guid.NewGuid() : id,
             Street = street,
             Number = number,
             Neighborhood = neighborhood,
             City = city,
-            Estate = Estate,
+            Estate = estate,
             CreatedAt = DateTime.UtcNow,
-            Active = true
+            Active = true,
+            ClientId = clientId
         };
     }
 

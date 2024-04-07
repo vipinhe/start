@@ -12,11 +12,11 @@ public class Client
     public DateTime? DeletedAt { get; private set; }
     public bool Active { get; private set; }
 
-    public static Client Create(string? name, string? surname, int age, string? email)
+    public static Client Create(string? name, string? surname, int age, string? email, Guid id = default)
     {
         return new Client
         {
-            Id = Guid.NewGuid(),
+            Id = id == Guid.Empty ? Guid.NewGuid() : id,
             Name = name,
             Surname = surname,
             Age = age,
